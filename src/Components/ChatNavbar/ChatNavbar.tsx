@@ -1,12 +1,9 @@
 import React from "react";
 
-const Chat:React.FC = () => {
-
+export const ChatNavbar:React.FC = () => {
     return (
         <div>
             hello
         </div>
     )
 }
-
-export default Chat;
