@@ -1,3 +1,4 @@
-export * from "./Layout/Layout"
-export * from "./ChatNavbar/ChatNavbar"
-export * from "./PrivateRoute/PrivateRoute"
+export * from "./Layout/Layout";
+export * from "./ChatNavbar/ChatNavbar";
+export * from "./ProjectSelect/ProjectSelect";
+export * from "./PrivateRoute/PrivateRoute";

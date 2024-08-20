@@ -1,0 +1,49 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.pageWrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-image: url("../../assets/backgroundImage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.loginForm-container {
+  padding: 20px;
+  width: 50vh;
+  border-radius: 10px;
+  font-family: $font-family;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  overscroll-behavior-x: auto;
+  @include box-shadow($box-shadow);
+
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: $primary-color;
+    color: $pulse-white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 0.3rem;
+    @include transition(background-color, 0.3s ease);
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+
+    &:focus {
+      outline: none;
+      @include box-shadow(0 0 5px $primary-color);
+    }
+  }
+}

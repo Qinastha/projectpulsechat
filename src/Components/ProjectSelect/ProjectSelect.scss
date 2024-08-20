@@ -1,0 +1,54 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+h3 {
+  cursor: pointer;
+  color: $text-muted;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.projectList__container {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease;
+  opacity: 0;
+  margin-bottom: 1rem;
+
+  &.visible {
+    max-height: 50vh;
+    opacity: 1;
+    overflow-y: auto;
+  }
+
+  .projectCard {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid $primary-color;
+    @include border-radius(10px);
+
+    img {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 10%;
+      margin-right: 10px;
+    }
+
+    p {
+      margin: 0;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: center;
+      font-size: 1.2rem;
+      @include gradientText();
+    }
+  }
+}
