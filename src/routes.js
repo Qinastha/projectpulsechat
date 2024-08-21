@@ -3,14 +3,14 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import React from "react";
+import React, {Suspense} from "react";
 import { PrivateRoute } from "./Components";
 import { userDataLoader } from "./loaders";
-import { ManageChat } from "./Pages/ManageChat/ManageChat";
+import ManageChat from "./Pages/ManageChat/ManageChat";
+import Chat from "./Pages/Chat/Chat";
+import Login from "./Pages/Login/Login";
 
 const Layout = React.lazy(() => import("./Components/Layout/Layout"));
-const Login = React.lazy(() => import("./Pages/Login/Login"));
-const Chat = React.lazy(() => import("./Pages/Chat/Chat"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,14 +20,18 @@ const router = createBrowserRouter(
         loader={userDataLoader}
         element={
           <PrivateRoute>
-            <Layout />
+              <Suspense fallback="Loading...">
+                  <Layout />
+              </Suspense>
           </PrivateRoute>
         }>
-        <Route path="chat" element={<Chat />} />
-        <Route path="chat/create" element={<ManageChat />} />
+          <Route path="chat/create" element={<ManageChat mode="create"/>} />
+          <Route path="chat/:chatId" element={<Chat />} />
+          <Route path="chat/:chatId/edit" element={<ManageChat mode="update"/>} />
       </Route>
+
       <Route path="login" element={<Login />} />
-    </Route>,
+    </Route>
   ),
 );
 

@@ -13,12 +13,12 @@ export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
 
   const selectChat = (chatId: string) => {
     dispatch(setCurrentChat(chatId));
-    //navigate for required chat in future
   };
+
   return (
     <div className="projectChats__container">
       {chats.length > 0 ? (
-        <div>
+        <div className="chatProjects__container">
           {chats.map((chat: IChat) => (
             <ChatItem key={chat._id} chat={chat} selectChat={selectChat} />
           ))}

@@ -4,3 +4,4 @@ export * from "./IMessage";
 export * from "./IProject";
 export * from "./MemberProfile";
 export * from "./requiredInput";
+export * from "./ChatFormData";

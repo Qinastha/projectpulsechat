@@ -3,7 +3,7 @@ import axios from "axios";
 import { IChat, IMember, IProject } from "../core";
 
 interface chatSliceProps {
-  currentChat: IChat;
+  currentChat: IChat | null;
   userProjects: IProject[];
   currentUser: IMember | null;
   selectedProject: IProject | null;
@@ -80,6 +80,26 @@ export const getAllUserProjects = createAsyncThunk(
   },
 );
 
+export const deleteChat = createAsyncThunk(
+    "chat/deleteChat",
+    async (chatId: string) => {
+      const token = localStorage.getItem("token")!;
+      try {
+        await axios.delete(`http://localhost:4000/api/chat/${chatId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        });
+        return chatId;
+      } catch (error) {
+        console.error("Error deleting chat:", error);
+        throw error;
+      }
+    }
+  );
+
+
 const chat = createSlice({
   name: "chat",
   initialState,
@@ -89,7 +109,7 @@ const chat = createSlice({
         project => project._id === action.payload,
       );
       if (project) {
-        state.selectedProject = project;
+        state.selectedProject = project as IProject;
       }
     },
     setCurrentChat: (state, action: PayloadAction<string | null>) => {
@@ -100,49 +120,52 @@ const chat = createSlice({
         state.currentChat = chat as IChat;
       }
     },
+    setCurrentChatNull: (state) => {
+      state.currentChat = null;
+    },
   },
   selectors: {
     getCurrentChat: state => state.currentChat,
     getSelectedProject: state => state.selectedProject,
+    getSelectedProjectsMembers: state => state.selectedProject?.members,
     getAllProjects: state => state.userProjects,
     getCurrentUser: state => state.currentUser,
-    getStatus: state => state.status,
   },
   extraReducers: builder => {
-    builder
-
-      .addCase(
+      builder.addCase(
         getUserData.fulfilled,
         (state, action: PayloadAction<IMember>) => {
           state.currentUser = action.payload;
-        },
-      )
+        });
 
-      .addCase(getAllUserProjects.pending, state => {
-        state.status = "loading";
-      })
-      .addCase(
+      builder.addCase(
         getAllUserProjects.fulfilled,
         (state, action: PayloadAction<IProject[]>) => {
           state.userProjects = action.payload;
           state.status = "resolved";
-        },
-      )
-      .addCase(getAllUserProjects.rejected, (state, action) => {
-        state.status = "rejected";
-        console.error("Fetching member projects failed:", action.error.message);
-      });
+        });
+
+      builder.addCase(deleteChat.fulfilled,
+        (state, action: PayloadAction<string>) => {
+        const chatId = action.payload
+          state.selectedProject!.chats = state.selectedProject!.chats.filter(
+            chat => chat._id!== chatId,
+          );
+          state.currentChat = null;
+        });
   },
 });
 
-export const { setSelectedProject, setCurrentChat } = chat.actions;
+export const { setSelectedProject,
+  setCurrentChat,
+  setCurrentChatNull,} = chat.actions;
 
 export const {
   getCurrentChat,
   getAllProjects,
   getSelectedProject,
+  getSelectedProjectsMembers,
   getCurrentUser,
-  getStatus,
 } = chat.selectors;
 
 export default chat.reducer;

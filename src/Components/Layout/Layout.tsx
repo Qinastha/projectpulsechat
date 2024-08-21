@@ -1,17 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ChatNavbar } from "../ChatNavbar/ChatNavbar";
 import { ProjectSelect } from "../ProjectSelect/ProjectSelect";
 import "./Layout.scss";
-import { useAppSelector } from "../../hooks";
-import { getSelectedProject } from "../../store/chatSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {getAllUserProjects, getCurrentUser, getSelectedProject, setCurrentChatNull} from "../../store/chatSlice";
 
 const Layout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useAppDispatch()
   const isTitleScreen = location.pathname === "/";
   const selectedProject = useAppSelector(getSelectedProject)!;
   const chats = selectedProject?.chats || [];
+const user = useAppSelector(getCurrentUser)
+  const createChat = () => {
+      dispatch(setCurrentChatNull())
+      navigate("chat/create");
+    };
+
+    useEffect(() => {
+        dispatch(getAllUserProjects())
+        console.log("user data")
+        console.log(user)
+        console.log("selected project")
+        console.log(selectedProject)
+    }, [user, selectedProject]);
 
   return (
     <div className="layout__container">
@@ -23,16 +37,14 @@ const Layout: React.FC = () => {
         {selectedProject && (
           <button
             className="leftSide__container-button"
-            onClick={() => navigate("chat/create")}>
+            onClick={createChat}>
             Create Chat
           </button>
         )}
       </header>
 
       <main>
-        <div
-          className={`background_container ${isTitleScreen ? "active" : ""}`}
-        />
+        <div className={`background_container ${isTitleScreen ? "active" : ""}`}/>
         <Outlet />
       </main>
     </div>

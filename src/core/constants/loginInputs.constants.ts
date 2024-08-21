@@ -7,6 +7,7 @@ export const LOGIN_REQUIRED_INPUTS: RequiredInput[] = [
     className: "form-control",
     required: true,
     label: "Email",
+    autoComplete: "off",
   },
   {
     type: "password",
@@ -14,5 +15,6 @@ export const LOGIN_REQUIRED_INPUTS: RequiredInput[] = [
     className: "form-control",
     required: true,
     label: "Password",
+    autoComplete: "off",
   },
 ];

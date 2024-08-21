@@ -1,6 +1,7 @@
 import { IMember } from "./IMember";
 
 export interface IMessage {
+  _id: string;
   sender: IMember;
   receiver: IMember;
   content: string;
