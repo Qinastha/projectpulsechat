@@ -21,10 +21,6 @@ const user = useAppSelector(getCurrentUser)
 
     useEffect(() => {
         dispatch(getAllUserProjects())
-        console.log("user data")
-        console.log(user)
-        console.log("selected project")
-        console.log(selectedProject)
     }, [user, selectedProject]);
 
   return (

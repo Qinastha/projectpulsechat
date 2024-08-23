@@ -4,6 +4,7 @@ import {CHAT_REQUIRED_INPUTS} from "../constants";
 import {ChatFormDataInputs, IChat, RequiredInput} from "../interfaces";
 import {useAppDispatch} from "../../hooks";
 import {useNavigate} from "react-router-dom";
+import {handleCurrentChat, handleNewChat} from "../../store/chatSlice";
 
 export const useChat = (
     initialChatData: ChatFormDataInputs,
@@ -69,7 +70,10 @@ export const useChat = (
                     members: [],
                     avatar: "",
                 })
-                navigate("/");
+                const data = response.data.value
+                dispatch(mode==="create" ? handleNewChat(data) : handleCurrentChat(data))
+                const newId: string = response.data.value._id
+                navigate(`../chat/${newId}`);
             }
         } catch (error) {
             console.error("Error during posting new project:", error);

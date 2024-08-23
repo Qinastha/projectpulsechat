@@ -6,11 +6,10 @@
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
-
-  img{
-    width:100px;
-    height:100px;
-  }
+  max-width: 60vw;
+  padding: 2rem 2rem;
+  margin: 0 auto;
+  position: relative;
 
   .manageChat__container-button{
     margin-bottom: 20px;
