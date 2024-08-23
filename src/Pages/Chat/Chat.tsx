@@ -25,21 +25,32 @@ const Chat: React.FC = () => {
     const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        socket.emit('joinChat', chat._id);
+
         socket.on('message', (message: IMessage) => {
             dispatch(handleNewMessage(message))
         })
-        socket.on('typingMessage', (sender:IMember) => {
-                setUsersTyping([...usersTyping, sender]);
-        })
+        socket.on('typingMessage', (sender: IMember) => {
+            if (sender._id !== currentUser._id) {
+                setUsersTyping(prev => {
+                    if (!prev.find(user => user._id === sender._id)) {
+                        return [...prev, sender];
+                    }
+                    return prev;
+                });
+            }
+        });
+
         socket.on('stopTypingMessage', (sender: IMember) => {
             setUsersTyping(prev => prev.filter(user => user._id !== sender._id));
         });
+
         return () => {
             socket.off('message')
             socket.off('typingMessage')
             socket.off('stopTypingMessage')
         }
-    }, []);
+    }, [chat._id]);
 
     const handleRightClick = (e: React.MouseEvent, messageId: string) => {
         e.preventDefault();
@@ -74,21 +85,21 @@ const Chat: React.FC = () => {
             content: messageText,
         };
         setMessageText("");
-        socket.emit('sendMessage', message);
-        socket.emit('messageStopTyping', currentUser)
+        socket.emit('sendMessage', { chatId: chat._id, message });
+        socket.emit('messageStopTyping', { chatId: chat._id, sender: currentUser })
     }
 
     const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
         setMessageText(e.target.value);
-        socket.emit('messageTyping', currentUser)
+        socket.emit('messageTyping', { chatId: chat._id, sender: currentUser });
 
         if (typingTimeoutRef.current) {
             clearTimeout(typingTimeoutRef.current);
         }
 
         typingTimeoutRef.current = setTimeout(() => {
-            socket.emit('messageStopTyping', currentUser);
+            socket.emit('messageStopTyping', { chatId: chat._id, sender: currentUser });
         }, 2000);
     }
 
