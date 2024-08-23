@@ -1,10 +1,10 @@
-import {IMember} from "./IMember";
-import {IProject} from "./IProject";
+import { IMember } from "./IMember";
+import { IProject } from "./IProject";
 
 export interface ChatFormDataInputs {
-    name: string;
-    description: string;
-    avatar: string | null;
-    members: IMember[];
-    currentProject: IProject;
+  name: string;
+  description: string;
+  avatar: string | null;
+  members: IMember[];
+  currentProject: IProject;
 }

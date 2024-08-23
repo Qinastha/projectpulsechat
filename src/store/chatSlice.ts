@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import {IChat, IMember, IMessage, IProject} from "../core";
+import { IChat, IMember, IMessage, IProject } from "../core";
 import message from "../core/components/Message/Message";
 
 interface chatSliceProps {
@@ -82,61 +82,23 @@ export const getAllUserProjects = createAsyncThunk(
 );
 
 export const deleteChat = createAsyncThunk(
-    "chat/deleteChat",
-    async (chatId: string) => {
-      const token = localStorage.getItem("token")!;
-      try {
-        await axios.delete(`http://localhost:4000/api/chat/${chatId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
-        return chatId;
-      } catch (error) {
-        console.error("Error deleting chat:", error);
-        throw error;
-      }
+  "chat/deleteChat",
+  async (chatId: string) => {
+    const token = localStorage.getItem("token")!;
+    try {
+      await axios.delete(`http://localhost:4000/api/chat/${chatId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      return chatId;
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+      throw error;
     }
-  );
-
-export const updateMessage = createAsyncThunk(
-    "chat/updateMessage",
-    async ({ chatId, messageId, content }: { chatId: string, messageId: string, content: string }) => {
-      const token = localStorage.getItem("token")!;
-      try {
-        await axios.put(`http://localhost:4000/api/chat/${chatId}/messages/${messageId}`, { content }, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
-        return { messageId, content };
-      } catch (error) {
-        console.error("Error updating message:", error);
-        throw error;
-      }
-    }
-  );
-
-export const deleteMessage = createAsyncThunk(
-    "chat/deleteMessage",
-    async ({ chatId, messageId }: ({ chatId: string, messageId: string })) => {
-      const token = localStorage.getItem("token")!;
-      try {
-        await axios.delete(`http://localhost:4000/api/chat/${chatId}/messages/${messageId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
-        return messageId;
-      } catch (error) {
-        console.error("Error deleting message:", error);
-        throw error;
-      }
-    }
-  );
+  },
+);
 
 const chat = createSlice({
   name: "chat",
@@ -144,7 +106,7 @@ const chat = createSlice({
   reducers: {
     setSelectedProject: (state, action: PayloadAction<string | null>) => {
       const project = state.userProjects.find(
-          project => project._id === action.payload,
+        project => project._id === action.payload,
       );
       if (project) {
         state.selectedProject = project as IProject;
@@ -152,25 +114,64 @@ const chat = createSlice({
     },
     setCurrentChat: (state, action: PayloadAction<string | null>) => {
       const chat = state.selectedProject!.chats.find(
-          chat => chat._id === action.payload,
+        chat => chat._id === action.payload,
       );
       if (chat) {
         state.currentChat = chat as IChat;
       }
     },
-    setCurrentChatNull: (state) => {
+    setCurrentChatNull: state => {
       state.currentChat = null;
     },
     handleNewChat: (state, action: PayloadAction<IChat>) => {
-      state.selectedProject!.chats = [...state.selectedProject!.chats, action.payload];
+      state.selectedProject!.chats = [
+        ...state.selectedProject!.chats,
+        action.payload,
+      ];
       state.currentChat = action.payload;
     },
     handleCurrentChat: (state, action: PayloadAction<IChat>) => {
       state.currentChat = action.payload;
     },
     handleNewMessage: (state, action: PayloadAction<IMessage>) => {
-      state.currentChat!.messages = [...state.currentChat!.messages, action.payload]
-    }
+      state.currentChat!.messages = [
+        ...state.currentChat!.messages,
+        action.payload,
+      ];
+      state.selectedProject!.chats = [...state.selectedProject!.chats].map(
+        chat =>
+          chat._id === state.currentChat!._id
+            ? { ...chat, messages: state.currentChat!.messages }
+            : chat,
+      );
+    },
+    handleUpdateMessage: (state, action: PayloadAction<IMessage>) => {
+      const newMessages = state.currentChat!.messages.map(message =>
+        message._id === action.payload._id
+          ? { ...message, content: action.payload.content }
+          : message,
+      );
+      if (newMessages) {
+        state.currentChat!.messages = [...newMessages];
+        state.selectedProject!.chats = [...state.selectedProject!.chats].map(
+          chat =>
+            chat._id === state.currentChat!._id
+              ? { ...chat, messages: state.currentChat!.messages }
+              : chat,
+        );
+      }
+    },
+    handleMessageDelete: (state, action: PayloadAction<string>) => {
+      state.currentChat!.messages = state.currentChat!.messages.filter(
+        message => message._id !== action.payload,
+      );
+      state.selectedProject!.chats = [...state.selectedProject!.chats].map(
+        chat =>
+          chat._id === state.currentChat!._id
+            ? { ...chat, messages: state.currentChat!.messages }
+            : chat,
+      );
+    },
   },
   selectors: {
     getCurrentChat: state => state.currentChat,
@@ -180,59 +181,44 @@ const chat = createSlice({
     getCurrentUser: state => state.currentUser,
   },
   extraReducers: builder => {
-      builder.addCase(
-        getUserData.fulfilled,
-        (state, action: PayloadAction<IMember>) => {
-          state.currentUser = action.payload;
-        });
+    builder.addCase(
+      getUserData.fulfilled,
+      (state, action: PayloadAction<IMember>) => {
+        state.currentUser = action.payload;
+      },
+    );
 
-      builder.addCase(
-        getAllUserProjects.fulfilled,
-        (state, action: PayloadAction<IProject[]>) => {
-          state.userProjects = action.payload;
-          state.status = "resolved";
-        });
+    builder.addCase(
+      getAllUserProjects.fulfilled,
+      (state, action: PayloadAction<IProject[]>) => {
+        state.userProjects = action.payload;
+        state.status = "resolved";
+      },
+    );
 
-      builder.addCase(deleteChat.fulfilled,
-        (state, action: PayloadAction<string>) => {
-        const chatId = action.payload
-          state.selectedProject!.chats = state.selectedProject!.chats.filter(
-            chat => chat._id!== chatId,
-          );
-          state.currentChat = null;
-        });
-
-      builder.addCase(updateMessage.fulfilled,
-        (state, action: PayloadAction<{messageId: string, content: string }>) => {
-        if (state.currentChat) {
-          const updatedMessage = state.currentChat.messages.find(
-              message => message._id === action.payload.messageId,
-          );
-          if (updatedMessage) {
-            updatedMessage.content = action.payload.content;
-          }
-        }
-      })
-
-      builder.addCase(deleteMessage.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          const messageId = action.payload;
-          if (state.currentChat) {
-            state.currentChat.messages = state.currentChat.messages.filter(
-                message => message._id !== messageId
-            );
-          }
-        }
+    builder.addCase(
+      deleteChat.fulfilled,
+      (state, action: PayloadAction<string>) => {
+        const chatId = action.payload;
+        state.selectedProject!.chats = state.selectedProject!.chats.filter(
+          chat => chat._id !== chatId,
+        );
+        state.currentChat = null;
+      },
     );
   },
 });
 
-export const { setSelectedProject,
+export const {
+  setSelectedProject,
   setCurrentChat,
   setCurrentChatNull,
   handleNewChat,
   handleCurrentChat,
-  handleNewMessage} = chat.actions;
+  handleNewMessage,
+  handleUpdateMessage,
+  handleMessageDelete,
+} = chat.actions;
 
 export const {
   getCurrentChat,

@@ -1,17 +1,17 @@
 @import "../../assets/styles/variables";
 @import "../../assets/styles/mixins";
 
-.manageChat__container{
+.manageChat__container {
   display: flex;
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
-  max-width: 60vw;
+  max-width: 40vw;
   padding: 2rem 2rem;
-  margin: 0 auto;
   position: relative;
+  background: rgba(0, 0, 0, 0.15);
 
-  .manageChat__container-button{
+  .manageChat__container-button {
     margin-bottom: 20px;
     background-color: $primary-color;
     color: white;

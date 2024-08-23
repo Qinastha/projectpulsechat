@@ -30,7 +30,7 @@
     border-radius: 10px;
   }
 
-  .projectChats__item-name{
+  .projectChats__item-name {
     font-weight: bold;
     color: $text-color;
   }
@@ -61,8 +61,7 @@
 @media (max-width: 768px) {
   .projectChats__container {
     .projectChats__item {
-
-      .projectChats__item-info{
+      .projectChats__item-info {
         display: none;
       }
     }

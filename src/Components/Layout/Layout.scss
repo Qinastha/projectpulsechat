@@ -21,6 +21,7 @@ header {
   padding: 0.5rem;
   border-right: 1px solid $border-color;
   width: 20vw;
+  box-sizing: border-box;
   @include gradient-bg(
     rgba($primary-color, 0.6),
     rgba($background-fit-color, 0.8)
@@ -42,8 +43,6 @@ main {
 }
 
 .background_container {
-  width: 0;
-  height: 0;
   transition: all 0.3s ease-in-out;
 
   &.active {
@@ -57,4 +56,3 @@ main {
     background-repeat: no-repeat;
   }
 }
-

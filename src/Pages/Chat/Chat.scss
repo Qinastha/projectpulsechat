@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .chat_fixed-header {
@@ -33,7 +34,7 @@
       content: attr(data-description);
       position: absolute;
       top: 120%;
-      left:50%;
+      left: 50%;
       transform: translateX(0);
       padding: 0.5rem;
       background-color: $text-color;
@@ -49,7 +50,7 @@
       text-align: center;
       white-space: normal;
       word-wrap: break-word;
-      @include box-shadow($box-shadow)
+      @include box-shadow($box-shadow);
     }
 
     &:hover::before {
@@ -84,13 +85,14 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  background: transparent;
 }
 
 .chat_send-message {
   @include flex-center;
   justify-content: space-between;
   padding: 15px 20px;
-  background-color: $pulse-white;
+  background-color: transparent;
   @include box-shadow($box-shadow);
 
   .chat__send-input {

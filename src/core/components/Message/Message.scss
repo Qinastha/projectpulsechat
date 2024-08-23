@@ -4,15 +4,15 @@
 .chat__message {
   display: flex;
   align-items: flex-start;
+  gap: 0.3rem;
 
   &--self {
-    justify-content: flex-end;
+    flex-direction: row-reverse;
   }
 
   .chat__message-avatar {
     width: 50px;
     height: 50px;
-    margin-right: 10px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid $primary-color;
@@ -71,7 +71,8 @@
         box-sizing: border-box;
         border: 1px solid $border-color;
         font-family: $font-family;
-        transition: border-color 0.3s ease,
+        transition:
+          border-color 0.3s ease,
           box-shadow 0.3s ease;
 
         &:focus {
@@ -106,7 +107,7 @@
   cursor: pointer;
   @include sakura-border;
   @include border-radius(10px);
-  @include box-shadow($box-shadow)
+  @include box-shadow($box-shadow);
 }
 
 .chat__message-menu-option {
