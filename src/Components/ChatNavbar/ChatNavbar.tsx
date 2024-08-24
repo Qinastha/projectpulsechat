@@ -16,11 +16,11 @@ export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
   };
 
   return (
-    <div className="projectChats__container">
+    <div>
       {chats.length > 0 ? (
         <div className="chatProjects__container">
           {chats.map((chat: IChat) => (
-            <ChatItem key={chat._id} chat={chat} selectChat={selectChat} />
+                <ChatItem key={chat._id} chat={chat} selectChat={selectChat} />
           ))}
         </div>
       ) : (

@@ -57,3 +57,14 @@ h3 {
     }
   }
 }
+
+@media (max-width: 768px) {
+  .projectList__container {
+
+    .projectCard {
+      p {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IMessage } from "../../index";
+import {ContextMenu, IMessage} from "../../index";
 import "./Message.scss";
 
 interface MessageProps {
@@ -59,7 +59,8 @@ const Message: React.FC<MessageProps> = ({
         />
       </div>
       <div
-        className="chat__message-container"
+
+        className={`chat__message-container ${isSelf ? "chat__message-container--self" : ""}`}
         onContextMenu={e =>
           handleRightClick(e, message._id, message.sender._id)
         }>
@@ -98,21 +99,13 @@ const Message: React.FC<MessageProps> = ({
       </div>
 
       {menuVisible && !editingMessageId && (
-        <div
-          className="chat__message-menu"
-          style={{ top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }}
-          onClick={handleClickOutside}>
-          <div
-            className="chat__message-menu-option"
-            onClick={() => handleEditMessageMode(message._id)}>
-            Edit Message
-          </div>
-          <div
-            className="chat__message-menu-option"
-            onClick={() => handleDeleteMessage(message._id)}>
-            Delete Message
-          </div>
-        </div>
+          <ContextMenu
+              menuPosition={menuPosition}
+              id={message._id}
+              handleEditMessageMode={handleEditMessageMode}
+              handleClickOutside={handleClickOutside}
+              handleDeleteMessage={handleDeleteMessage}
+          />
       )}
     </div>
   );

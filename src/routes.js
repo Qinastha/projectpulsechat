@@ -9,6 +9,7 @@ import { userDataLoader } from "./loaders";
 import ManageChat from "./Pages/ManageChat/ManageChat";
 import Chat from "./Pages/Chat/Chat";
 import Login from "./Pages/Login/Login";
+import {LogoLoader} from "@Qinastha/pulse_library";
 
 const Layout = React.lazy(() => import("./Components/Layout/Layout"));
 
@@ -20,7 +21,7 @@ const router = createBrowserRouter(
         loader={userDataLoader}
         element={
           <PrivateRoute>
-            <Suspense fallback="Loading...">
+            <Suspense fallback={<LogoLoader/>}>
               <Layout />
             </Suspense>
           </PrivateRoute>

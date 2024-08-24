@@ -15,7 +15,7 @@ const Layout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const isTitleScreen = location.pathname === "/";
+  const isBackground = location.pathname==="/";
   const selectedProject = useAppSelector(getSelectedProject)!;
   const chats = selectedProject?.chats || [];
   const user = useAppSelector(getCurrentUser);
@@ -43,10 +43,7 @@ const Layout: React.FC = () => {
       </header>
 
       <main>
-        <div
-          className={`background_container ${isTitleScreen ? "active" : ""}`}>
           <Outlet />
-        </div>
       </main>
     </div>
   );
