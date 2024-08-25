@@ -4,14 +4,20 @@ import { NavLink } from "react-router-dom";
 
 interface ChatItemProps {
   chat: IChat;
+  viewportWidth: number;
   selectChat: (chatId: string) => void;
 }
 
-export const ChatItem: React.FC<ChatItemProps> = ({ chat, selectChat }) => {
+export const ChatItem: React.FC<ChatItemProps> = ({
+  chat,
+  viewportWidth,
+  selectChat,
+}) => {
   const lastMessage = chat.messages[chat.messages.length - 1];
+  const charLimit = viewportWidth > 1500 ? 30 : 15;
   const lastMessageContent = lastMessage
-    ? lastMessage.content.trim().substring(0, 15) +
-      (lastMessage.content.length > 15 ? "..." : "")
+    ? lastMessage.content.trim().substring(0, charLimit) +
+      (lastMessage.content.length > charLimit ? "..." : "")
     : "";
   const lastMessageTime = lastMessage
     ? new Date(lastMessage.createdAt).toLocaleTimeString([], {
@@ -33,13 +39,17 @@ export const ChatItem: React.FC<ChatItemProps> = ({ chat, selectChat }) => {
       <div className="projectChats__item-info">
         <span className="projectChats__item-name">{chat.name}</span>
         {lastMessage ? (
-          <div className="projectChats__item-info-time">
-            <div>{lastMessageContent}</div>
-            <div>{lastMessageTime}</div>
+          <div className="projectChats__item-info-content">
+            <div className="projectChats__item-info-content-text">
+              {lastMessageContent}
+            </div>
+            <div className="projectChats__item-info-content-time">
+              {lastMessageTime}
+            </div>
           </div>
         ) : (
           <span
-            className="projectChats__item-info-time"
+            className="projectChats__item-info-content"
             style={{ textAlign: "center" }}>
             No messages yet
           </span>

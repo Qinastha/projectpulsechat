@@ -124,26 +124,37 @@ const chat = createSlice({
       state.currentChat = null;
     },
     handleNewChat: (state, action: PayloadAction<IChat>) => {
-      state.selectedProject!.chats = [
-        ...state.selectedProject!.chats,
-        action.payload,
-      ];
+      if (state.selectedProject !== null) {
+        state.selectedProject.chats = [
+          ...state.selectedProject.chats,
+          action.payload,
+        ];
+      }
       state.currentChat = action.payload;
     },
     handleCurrentChat: (state, action: PayloadAction<IChat>) => {
       state.currentChat = action.payload;
+      if (state.selectedProject !== null) {
+        state.selectedProject.chats = state.selectedProject.chats.map(chat =>
+          chat._id === state.currentChat!._id
+            ? { ...chat, ...action.payload }
+            : chat,
+        );
+      }
     },
     handleNewMessage: (state, action: PayloadAction<IMessage>) => {
-      state.currentChat!.messages = [
-        ...state.currentChat!.messages,
-        action.payload,
-      ];
-      state.selectedProject!.chats = [...state.selectedProject!.chats].map(
-        chat =>
-          chat._id === state.currentChat!._id
-            ? { ...chat, messages: state.currentChat!.messages }
-            : chat,
-      );
+      if (state.currentChat) {
+        state.currentChat.messages = [
+          ...state.currentChat.messages,
+          action.payload,
+        ];
+        state.selectedProject!.chats = [...state.selectedProject!.chats].map(
+          chat =>
+            chat._id === state.currentChat!._id
+              ? { ...chat, messages: state.currentChat!.messages }
+              : chat,
+        );
+      }
     },
     handleUpdateMessage: (state, action: PayloadAction<IMessage>) => {
       const newMessages = state.currentChat!.messages.map(message =>

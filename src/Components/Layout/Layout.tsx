@@ -13,9 +13,7 @@ import {
 
 const Layout: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useAppDispatch();
-  const isBackground = location.pathname==="/";
   const selectedProject = useAppSelector(getSelectedProject)!;
   const chats = selectedProject?.chats || [];
   const user = useAppSelector(getCurrentUser);
@@ -31,19 +29,23 @@ const Layout: React.FC = () => {
   return (
     <div className="layout__container">
       <header>
-        <div className="leftSide__container">
-          <ProjectSelect />
-          <ChatNavbar chats={chats} />
+        <div className="header__container">
+          <div className="leftSide__container">
+            <ProjectSelect />
+            <ChatNavbar chats={chats} />
+          </div>
+          {selectedProject && (
+            <button className="leftSide__container-button" onClick={createChat}>
+              Create Chat
+            </button>
+          )}
         </div>
-        {selectedProject && (
-          <button className="leftSide__container-button" onClick={createChat}>
-            Create Chat
-          </button>
-        )}
       </header>
 
       <main>
+        <div className="main__container">
           <Outlet />
+        </div>
       </main>
     </div>
   );

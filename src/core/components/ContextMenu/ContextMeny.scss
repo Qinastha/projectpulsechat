@@ -6,8 +6,8 @@
   background-color: $secondary-light-color;
   z-index: 1000;
   cursor: pointer;
+  border-radius: 10px;
   @include sakura-border;
-  @include border-radius(10px);
   @include box-shadow($box-shadow);
 }
 

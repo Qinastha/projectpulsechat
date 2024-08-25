@@ -34,7 +34,7 @@ h3 {
     padding: 10px;
     border: 1px solid $primary-color;
     transition: all 0.4s ease-in-out;
-    @include border-radius(10px);
+    border-radius: 10px;
 
     &:hover {
       scale: 1.05;
@@ -60,7 +60,6 @@ h3 {
 
 @media (max-width: 768px) {
   .projectList__container {
-
     .projectCard {
       p {
         display: none;

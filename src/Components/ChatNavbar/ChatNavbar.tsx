@@ -3,6 +3,7 @@ import "./ChatNavbar.scss";
 import { ChatItem, IChat } from "../../core";
 import { useAppDispatch } from "../../hooks";
 import { setCurrentChat } from "../../store/chatSlice";
+import { useViewport } from "@Qinastha/pulse_library";
 
 interface ChatNavbarProps {
   chats: IChat[];
@@ -10,6 +11,7 @@ interface ChatNavbarProps {
 
 export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
   const dispatch = useAppDispatch();
+  const { viewportWidth } = useViewport();
 
   const selectChat = (chatId: string) => {
     dispatch(setCurrentChat(chatId));
@@ -20,7 +22,12 @@ export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
       {chats.length > 0 ? (
         <div className="chatProjects__container">
           {chats.map((chat: IChat) => (
-                <ChatItem key={chat._id} chat={chat} selectChat={selectChat} />
+            <ChatItem
+              key={chat._id}
+              chat={chat}
+              viewportWidth={viewportWidth}
+              selectChat={selectChat}
+            />
           ))}
         </div>
       ) : (

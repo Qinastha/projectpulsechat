@@ -12,7 +12,7 @@
   background-color: $background-color;
 }
 
-header {
+.header__container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,13 +29,14 @@ header {
 
   .leftSide__container-button {
     margin-bottom: 0.5rem;
-    @include base-button;
     background-color: $primary-color;
     color: white;
+    box-sizing: border-box;
+    @include base-button;
   }
 }
 
-main {
+.main__container {
   max-height: 100%;
   min-height: 100vh;
   overflow-y: auto;
@@ -47,13 +48,13 @@ main {
 }
 
 @media (max-height: 450px) {
-  header {
+  .header__container {
     overflow-y: auto;
   }
 }
 
 @media (max-width: 768px) {
-  header {
+  .header__container {
     padding: 0;
   }
 }

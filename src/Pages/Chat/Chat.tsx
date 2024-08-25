@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState } from "react";
 import "./Chat.scss";
-import io, {Socket} from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   getCurrentChat,
@@ -10,10 +10,9 @@ import {
   handleUpdateMessage,
 } from "../../store/chatSlice";
 import { IMember, IMessage } from "../../core";
-import { NavLink } from "react-router-dom";
-import pinkBlossom from "../../assets/pinkBlossom.png";
 import useContextMenu from "../../core/utilities/useContextMenu";
 import useMessageHandling from "../../core/utilities/handleMessage";
+import { ChatFixedHeader } from "../../Components";
 
 const Message = lazy(() => import("../../core/components/Message/Message"));
 
@@ -82,35 +81,9 @@ const Chat: React.FC = () => {
     handleDeleteMessage,
   } = useMessageHandling(socket, chat._id, currentUser);
 
-
   return (
-    <div className="chat__container" onClick={(e) => handleClickOutside(e)}>
-      <div className="chat_fixed-header">
-        <div className="chat__header-title" data-description={chat.description}>
-          {chat.name}
-          {usersTyping.length > 0 && (
-            <div className="chat__header-participants">
-              {usersTyping.map((member: IMember, index: number) => (
-                <span key={index} className="chat__header-participant">
-                  {member.firstName}
-                </span>
-              ))}
-              <span className="chat__header-participant-typing">
-                {" "}
-                typing...
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="chat__header-options">
-          <NavLink to="edit" className="chat__header-options-settings">
-            <img
-                src={pinkBlossom}
-                alt="Settings"
-            />
-          </NavLink>
-        </div>
-      </div>
+    <div className="chat__container" onClick={e => handleClickOutside(e)}>
+      <ChatFixedHeader chat={chat} usersTyping={usersTyping} />
       <div className="chat__messages">
         {messages.map((message: IMessage) => (
           <Message

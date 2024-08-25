@@ -1,3 +1,3 @@
 export * from "./useChat";
 export * from "./useContextMenu";
-export * from "./handleMessage"
+export * from "./handleMessage";
