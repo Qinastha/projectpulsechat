@@ -1,5 +1,5 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
 
 .manageChat__container {
   width: 100%;
@@ -91,6 +91,18 @@
   .manageChat__container {
     .pulse-form {
       overflow-y: auto;
+      padding-right: 2rem;
+      margin-right: -1rem;
+      box-sizing: content-box;
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 4px;
+      }
     }
   }
 

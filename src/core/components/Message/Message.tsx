@@ -10,6 +10,10 @@ interface MessageProps {
   isEditing: boolean;
   editingMessageId: string | null;
   handleEditMessageMode: (messageId: string) => void;
+  ref?:
+    | React.RefObject<HTMLDivElement>
+    | ((instance: HTMLDivElement | null) => void)
+    | null;
   handleClickOutside: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   handleRightClick: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,

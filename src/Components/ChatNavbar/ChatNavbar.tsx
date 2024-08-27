@@ -1,15 +1,19 @@
 import React from "react";
 import "./ChatNavbar.scss";
-import { ChatItem, IChat } from "../../core";
+import { ChatItem, IChat, IProject } from "../../core";
 import { useAppDispatch } from "../../hooks";
 import { setCurrentChat } from "../../store/chatSlice";
 import { useViewport } from "@Qinastha/pulse_library";
 
 interface ChatNavbarProps {
   chats: IChat[];
+  selectedProject: IProject;
 }
 
-export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
+export const ChatNavbar: React.FC<ChatNavbarProps> = ({
+  chats,
+  selectedProject,
+}) => {
   const dispatch = useAppDispatch();
   const { viewportWidth } = useViewport();
 
@@ -18,9 +22,10 @@ export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
   };
 
   return (
-    <div>
+    <div className="chatProjects__container">
+      <h3>Chats:</h3>
       {chats.length > 0 ? (
-        <div className="chatProjects__container">
+        <div className="chatProjects__container-list">
           {chats.map((chat: IChat) => (
             <ChatItem
               key={chat._id}
@@ -31,8 +36,8 @@ export const ChatNavbar: React.FC<ChatNavbarProps> = ({ chats }) => {
           ))}
         </div>
       ) : (
-        <div className="projectChats__item">
-          {`There are no chats. Please select a project${chats.length > 0 ? " or add a new one." : "."}`}
+        <div className="chatProjects__container-alter-text">
+          {`Please ${!selectedProject ? "select a project" : "add new chat"}`}
         </div>
       )}
     </div>

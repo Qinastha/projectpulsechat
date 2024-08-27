@@ -1,5 +1,5 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
 
 .pageWrapper {
   height: 100vh;
@@ -48,5 +48,17 @@
       outline: none;
       @include box-shadow(0 0 5px $primary-color);
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .loginForm-container {
+    width: 70vw;
+  }
+}
+
+@media (max-height: 450px) {
+  .loginForm-container {
+    width: 60vw;
   }
 }

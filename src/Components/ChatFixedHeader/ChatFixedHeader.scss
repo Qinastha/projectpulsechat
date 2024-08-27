@@ -76,3 +76,13 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .chat_fixed-header {
+    .chat__header-options-settings {
+      img {
+        width: 12vw;
+      }
+    }
+  }
+}

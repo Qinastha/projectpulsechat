@@ -1,68 +1,121 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
 
-h3 {
-  cursor: pointer;
-  color: $text-muted;
-  transition: all 0.3s ease-in-out;
+.project-navbar-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0.5rem;
 
-  &:hover {
-    color: $primary-color;
+  h3 {
+    cursor: pointer;
+    color: $text-muted;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    box-shadow:
+      $box-shadow,
+      -($box-shadow);
+    box-sizing: border-box;
+    padding: 1.5rem;
+    border-radius: 10px;
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 }
 
 .projectList__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
+  box-sizing: content-box;
   transition:
     max-height 0.5s ease,
     opacity 0.5s ease;
-  opacity: 0;
-  margin-bottom: 1rem;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+  }
 
   &.visible {
     max-height: 50vh;
     opacity: 1;
     overflow-y: auto;
+    gap: 0.5rem;
+    padding-right: 1rem;
+    margin-right: -1rem;
   }
 
   .projectCard {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid $primary-color;
-    transition: all 0.4s ease-in-out;
+    padding: 1rem 0.4rem;
     border-radius: 10px;
+    box-sizing: border-box;
+    margin: 0.1rem;
+    box-shadow:
+      $box-shadow,
+      -($box-shadow);
+    gap: 0.3rem;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-      scale: 1.05;
+      scale: 1.15;
+      box-shadow: none;
     }
 
     img {
-      width: 3.5rem;
+      width: 4rem;
       height: 3.5rem;
-      border-radius: 10%;
-      margin-right: 10px;
+      border-radius: 20%;
+      box-sizing: border-box;
     }
 
     p {
       margin: 0;
       font-weight: bold;
-      flex-grow: 1;
       text-align: center;
-      font-size: 1.2rem;
-      @include gradientText();
+      color: $text-color;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: $primary-color;
     }
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
+  .project-navbar-container {
+    h3 {
+      font-size: 0.6rem;
+      text-align: center;
+      word-break: auto-phrase;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+  }
+
   .projectList__container {
+    grid-template-columns: 1fr;
     .projectCard {
+      justify-content: center;
       p {
         display: none;
+      }
+      img {
+        margin: 0 auto;
+        width: 3rem;
+        height: 3rem;
       }
     }
   }

@@ -14,7 +14,14 @@ export const ChatItem: React.FC<ChatItemProps> = ({
   selectChat,
 }) => {
   const lastMessage = chat.messages[chat.messages.length - 1];
-  const charLimit = viewportWidth > 1500 ? 30 : 15;
+  const charLimit =
+    viewportWidth > 1480
+      ? 30
+      : viewportWidth > 1179
+        ? 15
+        : viewportWidth > 800
+          ? 5
+          : 5;
   const lastMessageContent = lastMessage
     ? lastMessage.content.trim().substring(0, charLimit) +
       (lastMessage.content.length > charLimit ? "..." : "")
@@ -49,7 +56,7 @@ export const ChatItem: React.FC<ChatItemProps> = ({
           </div>
         ) : (
           <span
-            className="projectChats__item-info-content"
+            className="projectChats__item-info-alter"
             style={{ textAlign: "center" }}>
             No messages yet
           </span>

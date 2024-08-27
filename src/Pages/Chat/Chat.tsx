@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useEffect, useRef, useState } from "react";
 import "./Chat.scss";
 import io, { Socket } from "socket.io-client";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -13,6 +13,7 @@ import { IMember, IMessage } from "../../core";
 import useContextMenu from "../../core/utilities/useContextMenu";
 import useMessageHandling from "../../core/utilities/handleMessage";
 import { ChatFixedHeader } from "../../Components";
+import sendIcon from "../../assets/Send Icon.png";
 
 const Message = lazy(() => import("../../core/components/Message/Message"));
 
@@ -22,6 +23,7 @@ const Chat: React.FC = () => {
   const messages = chat.messages;
   const currentUser = useAppSelector(getCurrentUser)!;
   const [usersTyping, setUsersTyping] = useState<IMember[]>([]);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
   const socket: Socket = io("http://localhost:4000");
 
   useEffect(() => {
@@ -59,7 +61,12 @@ const Chat: React.FC = () => {
       socket.off("message");
       socket.off("typingMessage");
       socket.off("stopTypingMessage");
+      socket.disconnect();
     };
+  }, [chat._id]);
+
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat._id]);
 
   const {
@@ -85,7 +92,7 @@ const Chat: React.FC = () => {
     <div className="chat__container" onClick={e => handleClickOutside(e)}>
       <ChatFixedHeader chat={chat} usersTyping={usersTyping} />
       <div className="chat__messages">
-        {messages.map((message: IMessage) => (
+        {messages.map((message: IMessage, index: number) => (
           <Message
             key={message._id}
             message={message}
@@ -101,6 +108,7 @@ const Chat: React.FC = () => {
             handleDeleteMessage={handleDeleteMessage}
           />
         ))}
+        <div ref={lastMessageRef} />
       </div>
       <div className="chat_send-message">
         <input
@@ -111,7 +119,7 @@ const Chat: React.FC = () => {
           onChange={(e: any) => handleMessageChange(e)}
         />
         <button onClick={sendMessage} className="chat__send-button">
-          Send
+          <img src={sendIcon} alt="send" />
         </button>
       </div>
     </div>

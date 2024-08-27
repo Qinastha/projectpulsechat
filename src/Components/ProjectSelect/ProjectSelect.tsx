@@ -14,10 +14,8 @@ export const ProjectSelect = () => {
   };
 
   return (
-    <div>
-      <h3 onClick={() => setShowProjects(!showProjects)}>
-        Show List of projects
-      </h3>
+    <div className="project-navbar-container">
+      <h3 onClick={() => setShowProjects(!showProjects)}>List of projects</h3>
       <div
         className={`projectList__container ${showProjects ? "visible" : ""}`}>
         {projects.map(project => (
