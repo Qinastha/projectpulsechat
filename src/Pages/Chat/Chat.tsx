@@ -57,10 +57,15 @@ const Chat: React.FC = () => {
       dispatch(handleMessageDelete(messageId));
     });
 
+    socket.on("error", (error: { message: string }) => {
+      console.error("Socket error:", error.message);
+    });
+
     return () => {
       socket.off("message");
       socket.off("typingMessage");
       socket.off("stopTypingMessage");
+      socket.off("error");
       socket.disconnect();
     };
   }, [chat._id]);
