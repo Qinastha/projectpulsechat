@@ -1,0 +1,24 @@
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
+
+.chat__message-menu {
+  position: absolute;
+  background-color: $secondary-light-color;
+  z-index: 1000;
+  cursor: pointer;
+  border-radius: 10px;
+  @include sakura-border;
+  @include box-shadow($box-shadow);
+}
+
+.chat__message-menu-option {
+  padding: 1rem 1.4rem;
+  font-size: 1rem;
+  color: $text-muted;
+  white-space: nowrap;
+  border-bottom: 1px solid $border-color;
+
+  &:hover {
+    background-color: $primary-color;
+  }
+}
