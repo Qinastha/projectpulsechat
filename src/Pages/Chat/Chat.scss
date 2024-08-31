@@ -1,0 +1,58 @@
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
+
+.chat__container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chat__messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  margin-right: -1rem;
+  box-sizing: content-box;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+}
+
+.chat_send-message {
+  @include flex-center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.5);
+  @include box-shadow($box-shadow);
+
+  .chat__send-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    @include base-input-styles;
+  }
+
+  .chat__send-button {
+    background-color: $primary-color;
+    color: $pulse-white;
+    border: none;
+    @include base-button;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    img {
+      width: 0.8rem;
+    }
+  }
+}

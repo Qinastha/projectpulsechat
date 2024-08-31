@@ -1,0 +1,88 @@
+@import "~@Qinastha/pulse_library/src/styles/variables";
+@import "~@Qinastha/pulse_library/src/styles/mixins";
+
+.chat_fixed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  max-height: 10vh;
+  background-color: lighten($primary-color, 2%);
+  color: $pulse-white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 3vh;
+  @include box-shadow($box-shadow);
+
+  .chat__header-title {
+    font-size: 1.5rem;
+    font-family: $font-family-serif;
+    position: relative;
+    cursor: pointer;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    &:hover::after {
+      content: attr(data-description);
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(0);
+      padding: 0.5rem;
+      background-color: $text-color;
+      color: $pulse-white;
+      border-radius: 8px;
+      z-index: 10;
+      font-size: 0.8rem;
+      width: auto;
+      min-width: 10vw;
+      max-width: 40vw;
+      max-height: 20vh;
+      overflow-y: auto;
+      text-align: center;
+      white-space: normal;
+      word-wrap: break-word;
+      @include box-shadow($box-shadow);
+    }
+
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: $text-color transparent transparent transparent;
+      z-index: 10;
+    }
+  }
+  .chat__header-participants {
+    font-size: 0.9rem;
+  }
+
+  .chat__header-options-settings {
+    text-decoration: none;
+
+    img {
+      width: 3.5vw;
+      transition: transform 0.3s ease-in-out;
+      transform-origin: center;
+
+      &:hover {
+        transform: rotate(90deg) scale(1.1);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .chat_fixed-header {
+    .chat__header-options-settings {
+      img {
+        width: 12vw;
+      }
+    }
+  }
+}
