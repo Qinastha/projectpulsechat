@@ -72,6 +72,7 @@ If you’re not satisfied with the build tool and configuration, you can `eject`
 - **Real-Time Communication**: Instant updates and messages powered by **Socket.io**.
 - **Redux-Powered State Management**: Efficient state handling using Redux.
 - **TypeScript Support**: Strong typing for reliable code with fewer errors.
+- **Axios**: For handling HTTP requests to the backend.
 
 ## Usage
 
@@ -80,6 +81,12 @@ Once logged in, users can:
 - **Select a Project**: Choose from a list of projects they are part of.
 - **Start a Chat**: Engage in conversations with other project members.
 - **Receive and Send Messages**: Get and send real-time messages.
+
+## Custom Library
+
+This project utilizes a custom components and methods through
+library, [Pulse Library](https://github.com/Qinastha/pulse_library.git), to enhance functionality and maintain
+consistency across the application.
 
 ## Acknowledgements
 
