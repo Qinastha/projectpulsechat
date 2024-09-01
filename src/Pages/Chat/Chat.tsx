@@ -24,7 +24,7 @@ const Chat: React.FC = () => {
   const currentUser = useAppSelector(getCurrentUser)!;
   const [usersTyping, setUsersTyping] = useState<IMember[]>([]);
   const lastMessageRef = useRef<HTMLDivElement>(null);
-  const socket: Socket = io("http://51.21.127.157:4000");
+  const socket: Socket = io("https://51.21.127.157:4000");
 
   useEffect(() => {
     socket.emit("joinChat", chat._id);
