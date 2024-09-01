@@ -12,7 +12,7 @@ This project is a **React-based** chat application that enables registered users
 
 ## Getting Started
 
-Before diving into the code, make sure you have registered on the parent project [ProjectPulse](https://github.com/AntoxaAlex/ProjectPulse.git). This is where user accounts are managed and where you can create and manage your projects.
+Before diving into the code, make sure you have registered on the parent project [ProjectPulse](https://github.com/Qinastha/ProjectPulse.git). This is where user accounts are managed and where you can create and manage your projects.
 
 To get started with this chat application:
 
@@ -22,7 +22,7 @@ To get started with this chat application:
    ```
 2. **Navigate to the project directory**:
    ```bash
-   cd projectpulse-chat
+   cd projectpulsechat
    ```
 3. **Install the dependencies**:
    ```bash
@@ -90,5 +90,5 @@ consistency across the application.
 
 ## Acknowledgements
 
-- **Parent Project**: This chat application is part of the larger [ProjectPulse](https://github.com/AntoxaAlex/ProjectPulse.git) ecosystem.
+- **Parent Project**: This chat application is part of the larger [ProjectPulse](https://github.com/Qinastha/ProjectPulse.git) ecosystem.
 - **Socket.io**: For enabling real-time communication.
