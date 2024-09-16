@@ -28,6 +28,7 @@ export const ProjectSelect = () => {
           </div>
         ))}
       </div>
+      <div className="delimiter"></div>
     </div>
   );
 };

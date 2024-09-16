@@ -33,7 +33,7 @@ const Login: React.FC = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://51.21.127.157:4000/api/auth/login",
+        "http://localhost:4000/api/auth/login",
         loginForm,
       );
       if (response?.data?.value) {

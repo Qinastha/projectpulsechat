@@ -7,6 +7,10 @@
   box-sizing: border-box;
   padding: 0.5rem;
 
+  .delimiter {
+    position: static;
+  }
+
   h3 {
     cursor: pointer;
     color: $text-muted;

@@ -10,6 +10,7 @@ import {
   getSelectedProject,
   setCurrentChatNull,
 } from "../../store/chatSlice";
+import { useHideNav } from "@Qinastha/pulse_library";
 
 const Layout: React.FC = () => {
   const navigate = useNavigate();
@@ -18,8 +19,11 @@ const Layout: React.FC = () => {
   const chats = selectedProject?.chats || [];
   const user = useAppSelector(getCurrentUser);
   const [isNavbarHidden, setIsNavbarHidden] = useState<boolean>(false);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+
+  const { handleTouchStart, handleTouchEnd, handleTouchMove } = useHideNav({
+    onHide: () => setIsNavbarHidden(true),
+    onShow: () => setIsNavbarHidden(false),
+  });
 
   const createChat = () => {
     dispatch(setCurrentChatNull());
@@ -29,26 +33,6 @@ const Layout: React.FC = () => {
   useEffect(() => {
     dispatch(getAllUserProjects());
   }, [user, selectedProject]);
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current - touchEndX.current > 50) {
-      setIsNavbarHidden(true);
-    }
-
-    if (touchEndX.current - touchStartX.current > 50) {
-      setIsNavbarHidden(false);
-    }
-    touchStartX.current = 0;
-    touchEndX.current = 0;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
 
   return (
     <div className={`layout__container ${!isNavbarHidden ? "" : "hidden"}`}>

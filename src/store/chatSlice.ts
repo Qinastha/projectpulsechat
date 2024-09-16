@@ -40,7 +40,7 @@ const initialState: chatSliceProps = {
 export const getUserData = createAsyncThunk("chat/getUserData", async () => {
   const token = localStorage.getItem("token")!;
   try {
-    const response = await axios.get("http://51.21.127.157:4000/api/user", {
+    const response = await axios.get("http://localhost:4000/api/user", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
@@ -62,7 +62,7 @@ export const getAllUserProjects = createAsyncThunk(
     const token = localStorage.getItem("token")!;
     try {
       const response = await axios.get(
-        "http://51.21.127.157:4000/api/project/currentProjects",
+        "http://localhost:4000/api/project/currentProjects",
         {
           headers: {
             "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const deleteChat = createAsyncThunk(
   async (chatId: string) => {
     const token = localStorage.getItem("token")!;
     try {
-      await axios.delete(`http://51.21.127.157:4000/api/chat/${chatId}`, {
+      await axios.delete(`http://localhost:4000/api/chat/${chatId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
