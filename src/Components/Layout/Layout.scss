@@ -42,7 +42,7 @@
   .leftSide__container {
     display: flex;
     flex-direction: column;
-    max-height: 90vh;
+    max-height: 88vh;
   }
 
   .leftSide__container-button {
@@ -51,8 +51,15 @@
     color: white;
     box-sizing: border-box;
     align-self: center;
-    width: 100%;
+    width: 90%;
     @include base-button;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-5px);
+      scale: 1.05;
+      border: 1px solid $sakura-active-border-color;
+    }
   }
 }
 

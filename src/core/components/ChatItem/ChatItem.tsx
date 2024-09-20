@@ -1,6 +1,7 @@
 import React from "react";
 import { IChat } from "../../interfaces";
 import { NavLink } from "react-router-dom";
+import {trimText} from "@Qinastha/pulse_library";
 
 interface ChatItemProps {
   chat: IChat;
@@ -13,20 +14,15 @@ export const ChatItem: React.FC<ChatItemProps> = ({
   viewportWidth,
   selectChat,
 }) => {
-  const lastMessage = chat.messages[chat.messages.length - 1];
-  const charLimit =
-    viewportWidth > 1480
-      ? 30
-      : viewportWidth > 1179
-        ? 15
-        : viewportWidth > 800
-          ? 5
-          : 5;
-  const lastMessageContent = lastMessage
-    ? lastMessage.content.trim().substring(0, charLimit) +
-      (lastMessage.content.length > charLimit ? "..." : "")
-    : "";
-  const lastMessageTime = lastMessage
+    const lastMessage = chat.messages[chat.messages.length - 1] || { content: "", createdAt: "" };
+
+    const lastMessageContent = trimText({
+        title: lastMessage.content || "",
+        viewportWidth,
+        charWidthVW: viewportWidth > 1080 ? 15 : 35,
+    });
+
+  const lastMessageTime = lastMessage.createdAt
     ? new Date(lastMessage.createdAt).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
@@ -45,7 +41,7 @@ export const ChatItem: React.FC<ChatItemProps> = ({
       />
       <div className="projectChats__item-info">
         <span className="projectChats__item-name">{chat.name}</span>
-        {lastMessage ? (
+        {lastMessageContent !== "" ? (
           <div className="projectChats__item-info-content">
             <div className="projectChats__item-info-content-text">
               {lastMessageContent}

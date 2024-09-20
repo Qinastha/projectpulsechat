@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ChatNavbar } from "../ChatNavbar/ChatNavbar";
 import { ProjectSelect } from "../ProjectSelect/ProjectSelect";
@@ -15,10 +15,12 @@ import { useHideNav } from "@Qinastha/pulse_library";
 const Layout: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const selectedProject = useAppSelector(getSelectedProject)!;
   const chats = selectedProject?.chats || [];
   const user = useAppSelector(getCurrentUser);
   const [isNavbarHidden, setIsNavbarHidden] = useState<boolean>(false);
+  const isChatManage = location.pathname.includes('/edit') || location.pathname.includes('/create');
 
   const { handleTouchStart, handleTouchEnd, handleTouchMove } = useHideNav({
     onHide: () => setIsNavbarHidden(true),
@@ -42,8 +44,8 @@ const Layout: React.FC = () => {
             <ProjectSelect />
             <ChatNavbar chats={chats} selectedProject={selectedProject} />
           </div>
-          {selectedProject && (
-            <button className="leftSide__container-button" onClick={createChat}>
+          {selectedProject && !isChatManage && (
+              <button className="leftSide__container-button" onClick={createChat}>
               Create Chat
             </button>
           )}

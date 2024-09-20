@@ -7,7 +7,7 @@ import {
 
 export const userDataLoader = async () => {
   const state = store.getState();
-  const user = getCurrentUser(state)!;
+  const user = getCurrentUser(state);
   if (!user) {
     await store.dispatch(getUserData());
   }
