@@ -5,6 +5,7 @@ import {
   getUserData,
 } from "./store/chatSlice";
 
+// Fetch all user data
 export const userDataLoader = async () => {
   const state = store.getState();
   const user = getCurrentUser(state);

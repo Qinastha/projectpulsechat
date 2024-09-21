@@ -20,8 +20,11 @@ const Layout: React.FC = () => {
   const chats = selectedProject?.chats || [];
   const user = useAppSelector(getCurrentUser);
   const [isNavbarHidden, setIsNavbarHidden] = useState<boolean>(false);
-  const isChatManage = location.pathname.includes('/edit') || location.pathname.includes('/create');
+  const isChatManage =
+    location.pathname.includes("/edit") ||
+    location.pathname.includes("/create");
 
+  // Hide/show the navbar on touch events
   const { handleTouchStart, handleTouchEnd, handleTouchMove } = useHideNav({
     onHide: () => setIsNavbarHidden(true),
     onShow: () => setIsNavbarHidden(false),
@@ -45,7 +48,7 @@ const Layout: React.FC = () => {
             <ChatNavbar chats={chats} selectedProject={selectedProject} />
           </div>
           {selectedProject && !isChatManage && (
-              <button className="leftSide__container-button" onClick={createChat}>
+            <button className="leftSide__container-button" onClick={createChat}>
               Create Chat
             </button>
           )}

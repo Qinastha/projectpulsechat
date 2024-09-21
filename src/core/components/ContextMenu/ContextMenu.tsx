@@ -8,6 +8,8 @@ export interface ContextMenuProps {
   handleEditMessageMode: (messageId: string) => void;
   handleDeleteMessage: (messageId: string) => void;
 }
+
+// ContextMenu component to display context menu on right-click on message
 export const ContextMenu: React.FC<ContextMenuProps> = ({
   menuPosition,
   id,

@@ -36,6 +36,7 @@ const ManageChat: React.FC<{ mode: "create" | "update" }> = ({ mode }) => {
     handleSubmit,
   } = useChat(initialChatData, currentChat, mode);
 
+  // Function to validate form inputs before submission
   const isFormValid = () => {
     return Object.values(chatFormData).every(
       value =>

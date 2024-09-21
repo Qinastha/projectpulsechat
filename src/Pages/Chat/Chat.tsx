@@ -27,15 +27,20 @@ const Chat: React.FC = () => {
   const socket: Socket = io("http://localhost:4000");
 
   useEffect(() => {
+    // Emit a request to join the chat room using the chat's ID when the component mounts.
     socket.emit("joinChat", chat._id);
 
+    // Listen for new incoming messages and dispatch them to the Redux store via handleNewMessage.
     socket.on("message", (message: IMessage) => {
       dispatch(handleNewMessage(message));
     });
 
+    // Listen for "typing" events and update the list of users who are typing,
+    // ensuring the current user doesn't appear in that list.
     socket.on("typingMessage", (sender: IMember) => {
       if (sender._id !== currentUser._id) {
         setUsersTyping(prev => {
+          // Only add the sender to the list if they're not already in it.
           if (!prev.find(user => user._id === sender._id)) {
             return [...prev, sender];
           }
@@ -44,19 +49,24 @@ const Chat: React.FC = () => {
       }
     });
 
+    // Listen for "stop typing" events and remove the sender from the typing users list.
     socket.on("stopTypingMessage", (sender: IMember) => {
       setUsersTyping(prev => prev.filter(user => user._id !== sender._id));
     });
 
+    // Listen for message edits, dispatch the updated message to the Redux store,
+    // and reset the editing message state.
     socket.on("messageEdit", (updatedMessage: IMessage) => {
       dispatch(handleUpdateMessage(updatedMessage));
       setEditingMessageId(null);
     });
 
+    // Listen for message deletions and dispatch the delete action with the message ID.
     socket.on("messageDelete", (messageId: string) => {
       dispatch(handleMessageDelete(messageId));
     });
 
+    // Listen for any socket errors and log them to the console for debugging.
     socket.on("error", (error: { message: string }) => {
       console.error("Socket error:", error.message);
     });

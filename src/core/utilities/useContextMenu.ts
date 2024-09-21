@@ -7,6 +7,7 @@ const useContextMenu = (currentUser: IMember) => {
   const [menuMessageId, setMenuMessageId] = useState<string | null>(null);
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
 
+  // Event handler for context menu that displayed when a user right-clicks on a message and make a correct position of it
   const handleRightClick = (
     e: React.MouseEvent,
     messageId: string,

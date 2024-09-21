@@ -37,6 +37,7 @@ const initialState: chatSliceProps = {
   status: "idle",
 };
 
+// Async for fetching current user data
 export const getUserData = createAsyncThunk("chat/getUserData", async () => {
   const token = localStorage.getItem("token")!;
   try {
@@ -56,6 +57,7 @@ export const getUserData = createAsyncThunk("chat/getUserData", async () => {
   }
 });
 
+// Async for fetching all user projects
 export const getAllUserProjects = createAsyncThunk(
   "chat/getAllMemberProjects",
   async () => {
@@ -81,6 +83,7 @@ export const getAllUserProjects = createAsyncThunk(
   },
 );
 
+// Async for delete designated chat
 export const deleteChat = createAsyncThunk(
   "chat/deleteChat",
   async (chatId: string) => {

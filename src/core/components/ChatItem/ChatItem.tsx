@@ -1,7 +1,7 @@
 import React from "react";
 import { IChat } from "../../interfaces";
 import { NavLink } from "react-router-dom";
-import {trimText} from "@Qinastha/pulse_library";
+import { trimText } from "@Qinastha/pulse_library";
 
 interface ChatItemProps {
   chat: IChat;
@@ -14,14 +14,19 @@ export const ChatItem: React.FC<ChatItemProps> = ({
   viewportWidth,
   selectChat,
 }) => {
-    const lastMessage = chat.messages[chat.messages.length - 1] || { content: "", createdAt: "" };
+  const lastMessage = chat.messages[chat.messages.length - 1] || {
+    content: "",
+    createdAt: "",
+  };
 
-    const lastMessageContent = trimText({
-        title: lastMessage.content || "",
-        viewportWidth,
-        charWidthVW: viewportWidth > 1080 ? 15 : 35,
-    });
+  // Trim the last message to fit the width of the chat item in mobile viewports
+  const lastMessageContent = trimText({
+    title: lastMessage.content || "",
+    viewportWidth,
+    charWidthVW: viewportWidth > 1080 ? 15 : 35,
+  });
 
+  // Format the last message time to display in 12-hour format in mobile viewports
   const lastMessageTime = lastMessage.createdAt
     ? new Date(lastMessage.createdAt).toLocaleTimeString([], {
         hour: "2-digit",
