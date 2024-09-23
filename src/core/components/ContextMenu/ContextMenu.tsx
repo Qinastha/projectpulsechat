@@ -1,5 +1,6 @@
 import React from "react";
 import "./ContextMeny.scss";
+import { useTranslation } from "react-i18next";
 
 export interface ContextMenuProps {
   menuPosition: { x: number; y: number };
@@ -17,6 +18,8 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
   handleEditMessageMode,
   handleDeleteMessage,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className="chat__message-menu"
@@ -25,12 +28,12 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
       <div
         className="chat__message-menu-option"
         onClick={() => handleEditMessageMode(id)}>
-        Edit Message
+        {t("contextMenu.edit")}
       </div>
       <div
         className="chat__message-menu-option"
         onClick={() => handleDeleteMessage(id)}>
-        Delete Message
+        {t("contextMenu.delete")}
       </div>
     </div>
   );

@@ -10,8 +10,10 @@ import {
 } from "../../store/chatSlice";
 import { PulseForm } from "@Qinastha/pulse_library";
 import { useChat } from "../../core";
+import { useTranslation } from "react-i18next";
 
 const ManageChat: React.FC<{ mode: "create" | "update" }> = ({ mode }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const selectedProject = useAppSelector(getSelectedProject)!;
   const currentChat = useAppSelector(getCurrentChat)!;
@@ -50,7 +52,7 @@ const ManageChat: React.FC<{ mode: "create" | "update" }> = ({ mode }) => {
         <PulseForm
           requiredInputs={requiredInputs}
           inputValues={inputValues}
-          formTitle={`${mode === "create" ? "Create new chat" : "Manage chat"}`}
+          formTitle={`${mode === "create" ? t("manageChat.createTitle") : t("manageChat.editTitle")}`}
           allMembers={members}
           currentUser={currentUser}
           onChange={handleInputChange}
@@ -63,7 +65,9 @@ const ManageChat: React.FC<{ mode: "create" | "update" }> = ({ mode }) => {
             className="manageChat__container-button"
             onClick={handleSubmit}
             disabled={!isFormValid()}>
-            {mode === "create" ? "Create chat" : "Update chat"}
+            {mode === "create"
+              ? t("manageChat.createButton")
+              : t("manageChat.editButton")}
           </button>
           {mode === "update" && (
             <button
@@ -73,7 +77,7 @@ const ManageChat: React.FC<{ mode: "create" | "update" }> = ({ mode }) => {
                 dispatch(deleteChat(currentChat._id));
                 navigate("/");
               }}>
-              Delete chat
+              {t("manageChat.deleteButton")}
             </button>
           )}
         </div>

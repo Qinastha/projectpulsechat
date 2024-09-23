@@ -14,10 +14,12 @@ import useContextMenu from "../../core/utilities/useContextMenu";
 import useMessageHandling from "../../core/utilities/handleMessage";
 import { ChatFixedHeader } from "../../Components";
 import sendIcon from "../../assets/Send Icon.png";
+import { useTranslation } from "react-i18next";
 
 const Message = lazy(() => import("../../core/components/Message/Message"));
 
 const Chat: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const chat = useAppSelector(getCurrentChat)!;
   const messages = chat.messages;
@@ -128,7 +130,7 @@ const Chat: React.FC = () => {
       <div className="chat_send-message">
         <input
           type="text"
-          placeholder="Type a message..."
+          placeholder={t("chat.placeholder")}
           className="chat__send-input"
           value={messageText}
           onChange={(e: any) => handleMessageChange(e)}

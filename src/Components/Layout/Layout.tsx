@@ -11,8 +11,10 @@ import {
   setCurrentChatNull,
 } from "../../store/chatSlice";
 import { useHideNav } from "@Qinastha/pulse_library";
+import { useTranslation } from "react-i18next";
 
 const Layout: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -49,7 +51,7 @@ const Layout: React.FC = () => {
           </div>
           {selectedProject && !isChatManage && (
             <button className="leftSide__container-button" onClick={createChat}>
-              Create Chat
+              {t("layout.create")}
             </button>
           )}
         </div>

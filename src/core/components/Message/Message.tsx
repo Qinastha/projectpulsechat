@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ContextMenu, IMessage } from "../../index";
 import "./Message.scss";
+import { useTranslation } from "react-i18next";
 
 interface MessageProps {
   message: IMessage;
@@ -37,6 +38,7 @@ const Message: React.FC<MessageProps> = ({
   handleMessageUpdate,
   handleDeleteMessage,
 }) => {
+  const { t } = useTranslation();
   const [messageContent, setMessageContent] = useState<string>(message.content);
   const [textAreaSize, setTextAreaSize] = useState({
     width: "0px",
@@ -94,7 +96,7 @@ const Message: React.FC<MessageProps> = ({
                 onClick={() =>
                   handleMessageUpdate(message._id, messageContent)
                 }>
-                Save changes
+                {t("message.save")}
               </button>
             </div>
           )}

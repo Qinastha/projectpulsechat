@@ -1,11 +1,14 @@
 import "./ProjectSelect.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllProjects, setSelectedProject } from "../../store/chatSlice";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@Qinastha/pulse_library";
 
 export const ProjectSelect = () => {
   const dispatch = useAppDispatch();
   const projects = useAppSelector(getAllProjects);
+  const { t } = useTranslation();
   const [showProjects, setShowProjects] = useState(false);
 
   const selectCurrentProject = (projectId: string) => {
@@ -15,7 +18,9 @@ export const ProjectSelect = () => {
 
   return (
     <div className="project-navbar-container">
-      <h3 onClick={() => setShowProjects(!showProjects)}>List of projects</h3>
+      <h3 onClick={() => setShowProjects(!showProjects)}>
+        {t("projectSelect.list")}
+      </h3>
       <div
         className={`projectList__container ${showProjects ? "visible" : ""}`}>
         {projects.map(project => (

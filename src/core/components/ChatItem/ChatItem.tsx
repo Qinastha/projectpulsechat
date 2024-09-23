@@ -2,6 +2,7 @@ import React from "react";
 import { IChat } from "../../interfaces";
 import { NavLink } from "react-router-dom";
 import { trimText } from "@Qinastha/pulse_library";
+import { useTranslation } from "react-i18next";
 
 interface ChatItemProps {
   chat: IChat;
@@ -14,6 +15,7 @@ export const ChatItem: React.FC<ChatItemProps> = ({
   viewportWidth,
   selectChat,
 }) => {
+  const { t } = useTranslation();
   const lastMessage = chat.messages[chat.messages.length - 1] || {
     content: "",
     createdAt: "",
@@ -59,7 +61,7 @@ export const ChatItem: React.FC<ChatItemProps> = ({
           <span
             className="projectChats__item-info-alter"
             style={{ textAlign: "center" }}>
-            No messages yet
+            {t("chatItem.noMessages")}
           </span>
         )}
       </div>

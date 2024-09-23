@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { PulseForm } from "@Qinastha/pulse_library";
 import { LOGIN_REQUIRED_INPUTS } from "../../core";
 import "./Login.scss";
+import { useTranslation } from "react-i18next";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   interface LoginFormData {
     email: string;
@@ -53,11 +55,11 @@ const Login: React.FC = () => {
         <PulseForm
           requiredInputs={requiredInputs}
           inputValues={inputValues}
-          formTitle={"Login to your account"}
+          formTitle={t("login.formTitle")}
           onChange={handleInputChange}
         />
         <button type="button" onClick={handleSubmit}>
-          Login
+          {t("login.buttonText")}
         </button>
       </div>
     </div>

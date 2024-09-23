@@ -6,7 +6,7 @@ export const CHAT_REQUIRED_INPUTS: RequiredInput[] = [
     name: "name",
     className: "project-pop__input",
     required: true,
-    label: "Name",
+    label: "label.name",
     autoComplete: "off",
   },
   {
@@ -14,7 +14,7 @@ export const CHAT_REQUIRED_INPUTS: RequiredInput[] = [
     name: "description",
     className: "project-pop__input",
     required: true,
-    label: "Description",
+    label: "label.description",
     autoComplete: "off",
   },
   {
@@ -22,7 +22,7 @@ export const CHAT_REQUIRED_INPUTS: RequiredInput[] = [
     name: "members",
     className: "project-pop__input",
     required: true,
-    label: "Select chat members",
+    label: "label.members",
     autoComplete: "off",
   },
   {
@@ -30,7 +30,7 @@ export const CHAT_REQUIRED_INPUTS: RequiredInput[] = [
     name: "avatar",
     className: "project-pop__input",
     required: true,
-    label: "Avatar",
+    label: "label.avatar",
     autoComplete: "off",
   },
 ];

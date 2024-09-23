@@ -62,16 +62,27 @@
     font-size: 0.9rem;
   }
 
-  .chat__header-options-settings {
-    text-decoration: none;
+  .chat__header-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-    img {
-      width: 3.5vw;
-      transition: transform 0.3s ease-in-out;
-      transform-origin: center;
+    .language-switcher {
+      padding-right: 1rem;
+      box-sizing: border-box;
+    }
 
-      &:hover {
-        transform: rotate(90deg) scale(1.1);
+    .chat__header-options-settings {
+      text-decoration: none;
+
+      img {
+        width: 3.5vw;
+        transition: transform 0.3s ease-in-out;
+        transform-origin: center;
+
+        &:hover {
+          transform: rotate(90deg) scale(1.1);
+        }
       }
     }
   }
@@ -79,9 +90,11 @@
 
 @media (max-width: 768px) {
   .chat_fixed-header {
-    .chat__header-options-settings {
-      img {
-        width: 12vw;
+    .chat__header-options {
+      .chat__header-options-settings {
+        img {
+          width: 12vw;
+        }
       }
     }
   }
