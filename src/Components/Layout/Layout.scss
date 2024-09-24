@@ -42,23 +42,29 @@
   .leftSide__container {
     display: flex;
     flex-direction: column;
-    max-height: 88vh;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+    box-sizing: border-box;
   }
 
   .leftSide__container-button {
     margin-bottom: 0.5rem;
-    background-color: $primary-color;
-    color: white;
+    background-color: $pastel-light-blue;
+    color: $text-muted;
     box-sizing: border-box;
     align-self: center;
     width: 90%;
-    @include base-button;
+    font-size: 0.9rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
     transition: all 0.3s ease-in-out;
 
     &:hover {
       transform: translateY(-5px);
       scale: 1.05;
-      border: 1px solid $sakura-active-border-color;
+      border: 1.5px solid $sakura-active-border-color;
     }
   }
 }
@@ -88,13 +94,17 @@
 }
 
 @media (max-width: 768px) {
-  .header__container {
-    padding: 0;
+  .layout__container {
+    grid-template-columns: minmax(25vw, auto) 1fr;
+    .header__container {
+      padding: 0;
+      width: 25vw;
 
-    .leftSide__container-button {
-      width: 90%;
-      text-align: center;
-      padding: 5px 10px;
+      .leftSide__container-button {
+        width: 90%;
+        text-align: center;
+        padding: 5px 10px;
+      }
     }
   }
 }
