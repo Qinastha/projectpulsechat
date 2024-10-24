@@ -90,6 +90,9 @@
 
 @media (max-width: 768px) {
   .chat_fixed-header {
+    .chat__header-title {
+      font-size: 1rem;
+    }
     .chat__header-options {
       .chat__header-options-settings {
         img {

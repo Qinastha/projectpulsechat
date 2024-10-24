@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@Qinastha/pulse_library": "^1.1.2",
+    "@Qinastha/pulse_library": "^1.1.6",
     "@reduxjs/toolkit": "^2.2.7",
     "@types/node": "^16.18.105",
     "@types/react": "^18.3.3",

@@ -37,7 +37,7 @@ export const useChat = (
       return;
     }
     const response = await axios.post(
-      "http://51.21.127.157:4000/api/core/uploadImage",
+      "http://localhost:4000/api/core/uploadImage",
       { avatar: file },
       {
         headers: {
@@ -59,7 +59,7 @@ export const useChat = (
     try {
       const url =
         mode === "create"
-          ? "http://51.21.127.157:4000/api/chat"
+          ? "http://localhost:4000/api/chat"
           : `http://localhost:4000/api/chat/${currentChat._id}`;
       const method = mode === "create" ? axios.post : axios.put;
       const response = await method(url, chatFormData, {
